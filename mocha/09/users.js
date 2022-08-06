@@ -5,12 +5,6 @@ const chai = require( "chai" );
 
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-const http=require('http');
-const options = {
-    protocol:'http:',
-    host: 'api.blog.local',
-    port:80
-};
 
 require( 'dotenv' ).config();
 
@@ -24,7 +18,7 @@ describe( 'Users', function()
     {
         it( 'Перегляд списку користувачів', async () =>
         {
-            const res = await http.request( options )
+            const res = await chai.request( 'http://api.blog.local' )
                 .get( '/users' )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
