@@ -5,7 +5,7 @@ const chai = require( "chai" );
 
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-
+const http=require('http');
 const options = {
     protocol:'http:',
     host: 'api.blog.local',
@@ -24,7 +24,7 @@ describe( 'Users', function()
     {
         it( 'Перегляд списку користувачів', async () =>
         {
-            const res = await chai.request( options )
+            const res = await http.request( options )
                 .get( '/users' )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
