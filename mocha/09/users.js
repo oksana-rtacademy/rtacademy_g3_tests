@@ -22,7 +22,7 @@ describe( 'Users', function()
                 .get( "/users" )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
-                .set( 'X-TOKEN', TOKEN )
+                .set( 'X-TOKEN', '1SEkpnyDplN0DVqvRkgcRur6HKmg7TGahW3MF3RkirOIuuX3tzFlpU7f5IbUhFPFWtH21KQG3XzRMP9CnVbyPWiCWiJ4HYaDRhL3y955h7XByl7ZaNXIdmiuYAaBZcjM' )
             expect( res ).to.be.json;
 
             console.log(res.body);
@@ -41,7 +41,7 @@ describe( 'Users', function()
                 .post( "/users" )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
-                .set( 'X-TOKEN', TOKEN )
+                .set( 'X-TOKEN', '1SEkpnyDplN0DVqvRkgcRur6HKmg7TGahW3MF3RkirOIuuX3tzFlpU7f5IbUhFPFWtH21KQG3XzRMP9CnVbyPWiCWiJ4HYaDRhL3y955h7XByl7ZaNXIdmiuYAaBZcjM' )
                 .send(
                 {
                     "login"    : login,
