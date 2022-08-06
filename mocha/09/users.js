@@ -18,7 +18,7 @@ describe( 'Users', function()
     {
         it( 'Перегляд списку користувачів', async () =>
         {
-            const res = await chai.request( 'api.blog.local:80' )
+            const res = await chai.request( 'http://api.blog.local:80' )
                 .get( '/users' )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
