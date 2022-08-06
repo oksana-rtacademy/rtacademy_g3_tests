@@ -1,0 +1,20 @@
+name: GitHub Actions For 22.X
+on: [push]
+jobs:
+  run-22-09:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x.x
+          cache: 'npm'
+          cache-dependency-path: "mocha/09/package-lock.json"
+      - name: Install modules
+        run: npm ci
+        working-directory: mocha/09
+      - name: Run tests
+        run: npm test
+        working-directory: mocha/09
