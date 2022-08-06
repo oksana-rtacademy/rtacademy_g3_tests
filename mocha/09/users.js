@@ -18,8 +18,8 @@ describe( 'Users', function()
     {
         it( 'Перегляд списку користувачів', async () =>
         {
-            const res = await chai.request( "http://api.blog.local" )
-                .get( "/users" )
+            const res = await chai.request( 'http://api.blog.local' )
+                .get( '/users' )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
                 .set( 'X-TOKEN', '1SEkpnyDplN0DVqvRkgcRur6HKmg7TGahW3MF3RkirOIuuX3tzFlpU7f5IbUhFPFWtH21KQG3XzRMP9CnVbyPWiCWiJ4HYaDRhL3y955h7XByl7ZaNXIdmiuYAaBZcjM' )
@@ -37,8 +37,8 @@ describe( 'Users', function()
             let email = login + "@gmail.com";
             let password = login + login;
 
-            const res = await chai.request( "api.blog.local" )
-                .post( "/users" )
+            const res = await chai.request( 'http://api.blog.local' )
+                .post( '/users' )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
                 .set( 'X-TOKEN', '1SEkpnyDplN0DVqvRkgcRur6HKmg7TGahW3MF3RkirOIuuX3tzFlpU7f5IbUhFPFWtH21KQG3XzRMP9CnVbyPWiCWiJ4HYaDRhL3y955h7XByl7ZaNXIdmiuYAaBZcjM' )
