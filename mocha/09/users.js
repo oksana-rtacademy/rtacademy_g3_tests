@@ -6,6 +6,12 @@ const chai = require( "chai" );
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
+const options = {
+    protocol:'http:',
+    host: 'api.blog.local',
+    port:80
+};
+
 require( 'dotenv' ).config();
 
 const { faker } = require( '@faker-js/faker' );
@@ -18,7 +24,7 @@ describe( 'Users', function()
     {
         it( 'Перегляд списку користувачів', async () =>
         {
-            const res = await chai.request( 'http://api.blog.local' )
+            const res = await chai.request( options )
                 .get( '/users' )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
