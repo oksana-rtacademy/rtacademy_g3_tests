@@ -37,7 +37,7 @@ describe( 'Users', function()
             let email = login + "@gmail.com";
             let password = login + login;
 
-            const res = await chai.request( "http://api.blog.local" )
+            const res = await chai.request( "api.blog.local" )
                 .post( "/users" )
                 .set( 'Accept',  'application/json' )
                 .set( 'Content-Type',  'application/json' )
