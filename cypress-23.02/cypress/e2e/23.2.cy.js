@@ -5,7 +5,7 @@ import moment         from "moment";
 
 describe( '#23.2', () =>
 {
-    describe( 'Дії без авторизації', () =>
+    describe.skip( 'Дії без авторизації', () =>
     {
         let baseUrl;
 
@@ -130,8 +130,11 @@ describe( '#23.2', () =>
             //cy.screenshot();
         } );
 
-        it.skip( 'Додати категорію', () =>
+        it.only( 'Додати категорію', () =>
         {
+            cy.log( cy.document() );
+            cy.document().its('contentType').should('eq', 'text/html');
+            cy.document().its('statusCode').should('eq', 'text/html');
             const time = new Date().getTime(),
                 name = faker.word.noun(),
                 title = name + ' ' + time,
