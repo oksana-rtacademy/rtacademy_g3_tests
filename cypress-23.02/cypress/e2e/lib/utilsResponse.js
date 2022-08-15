@@ -1,27 +1,36 @@
 const utilsResponse = {};
 
-utilsResponse.checkHttpStatus = ( response ) =>
+utilsResponse.checkHttpStatus = ( response, statusCode = 200 ) =>
 {
     expect( response ).to.have.property( 'statusCode' );
-    expect( response.statusCode ).to.eq( 200 );
-    expect( response ).to.have.property( 'statusMessage' );
-    expect( response.statusMessage ).to.eq( 'OK' );
+    expect( response.statusCode ).to.eq( statusCode );
 };
 
-utilsResponse.checkJSON = ( response ) =>
+utilsResponse.checkContentType = ( response, contentType ) =>
 {
-    utilsResponse.checkHttpStatus( response );
-
     expect( response.headers ).to.have.property( 'content-type' );
-    expect( response.headers[ 'content-type' ] ).to.eql( 'application/json' );
+
+    if( contentType === 'checkJSON' )
+    {
+        expect( response.headers[ 'content-type' ] ).to.include( 'application/json' );
+    }
+    else if( contentType === 'checkHTML' )
+    {
+        expect( response.headers[ 'content-type' ] ).to.include( 'text/html' );
+    }
 };
 
-utilsResponse.checkHTML = ( response ) =>
+utilsResponse.checkTimeoutContentTypeStatus = ( response, pageLoadStart, timeout, contentType, statusCode ) =>
 {
-    utilsResponse.checkHttpStatus( response );
+    const pageLoadEnd = new Date().getTime();
 
-    expect( response.headers ).to.have.property( 'content-type' );
-    expect( response.headers[ 'content-type' ] ).to.eql( 'text/html; charset=UTF-8' );
+    cy.log( 'Page Load Time: ' + ( pageLoadEnd - pageLoadStart ) + 'ms' );
+
+    // перевірка на час завантаження сторінки
+    expect( ( () => timeout > pageLoadEnd - pageLoadStart )() ).to.be.true;
+
+    utilsResponse.checkHttpStatus( response, statusCode );
+    utilsResponse.checkContentType( response, contentType );
 };
 
 export default {
