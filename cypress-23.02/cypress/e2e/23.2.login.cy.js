@@ -47,6 +47,14 @@ describe( 'Логін', () =>
         // cy.screenshot( { overwrite: true } );
     } );
 
+    afterEach(
+        () =>
+        {
+            // Деавторизація
+            utilsUser.deAuthorize();
+        }
+    );
+
 } );
 
 

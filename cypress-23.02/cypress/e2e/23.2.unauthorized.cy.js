@@ -22,7 +22,8 @@ describe( 'Дії без авторизації', () =>
         );
 
         cy.document()
-            .its( 'contentType' ).should( 'eq', 'text/html' );
+            .its( 'contentType' )
+            .should( 'eq', 'text/html' );
     });
 
     it( 'Відкрити першу сторінку, перевірити що відображено 3 записи', () =>
@@ -63,7 +64,7 @@ describe( 'Дії без авторизації', () =>
         // cy.screenshot( { overwrite: true } );
     } );
 
-    it( 'Відкрити першу сторінку, довантажити пости через "Load More", відкрити будь-який та перевірити його', () =>
+    it.only( 'Відкрити першу сторінку, довантажити пости через "Load More", відкрити будь-який та перевірити його', () =>
     {
         cy.intercept( 'GET', '**/posts_ajax.php?page=2' )
             .as( 'postsLoadMore' );
@@ -94,7 +95,9 @@ describe( 'Дії без авторизації', () =>
             ).then(
             ( articleData ) =>
             {
-                cy.intercept( 'GET', '**/single.php?id=6' )
+                let idPost = ( articleData.url ).toString().slice( -1 );
+
+                cy.intercept( 'GET', `**/single.php?id=${idPost}` )
                     .as( 'postLoadPage' );
 
                 cy.get( 'main.main-posts > div.posts > article:nth-child(5) > a.title' )
