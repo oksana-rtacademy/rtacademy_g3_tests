@@ -59,7 +59,7 @@ describe( 'Пост', () =>
 
         const time = new Date().getTime(),
             name = faker.word.noun(),
-            title = name + ' ' + time,
+            postTitle = name + ' ' + time,
             description = faker.lorem.sentence(),
             content = faker.lorem.sentences( 4 ),
             publishDate = '2022-08-12T12:24',
@@ -76,8 +76,8 @@ describe( 'Пост', () =>
             .should( 'be.visible' )
             .focus()
             .clear()
-            .type( title, { delay: 10 } )
-            .should( 'have.value', title );
+            .type( postTitle, { delay: 10 } )
+            .should( 'have.value', postTitle );
 
         cy.get( '#form-post-description' )
             .should( 'be.visible' )
@@ -122,7 +122,9 @@ describe( 'Пост', () =>
             .focus()
             .click();
 
-        const postAddTimeout = parseInt( Cypress.env( 'timeouts' ).postAdd );
+        pageLoadStart = new Date().getTime();
+
+        let postAddTimeout = parseInt( Cypress.env( 'timeouts' ).postAdd );
 
         cy.wait( '@postAddPagePost' )
             .should( ( { response } ) =>
@@ -133,24 +135,23 @@ describe( 'Пост', () =>
 
         // cy.screenshot( { overwrite: true } );
 
-        cy.get( 'main > article div > h1' )
-            .should( 'contain', title );
-
-        cy.visit(
-            baseUrl,
-            {
-                timeout: timeoutDefault
-            }
-        );
-
-        cy.get( 'main.main-posts > div.posts > article:nth-child(1) > a.title' )
+        cy.get( 'body > header > a > h1' )
             .should( 'be.visible' )
-            .should( 'contain', title )
-            .click();
+            .should( 'contain', Cypress.env( 'mainPageTitle' ) );
 
-        // TODO: page load time
-        // TODO: http status
+        cy.get( 'body > main > article > div.post-image > div > h1' )
+            .should( 'be.visible' )
+            .should( 'contain', postTitle );
+
     } );
+
+    afterEach(
+        () =>
+        {
+            // Деавторизація
+            utilsUser.deAuthorize();
+        }
+    );
 } );
 
 
