@@ -58,9 +58,9 @@ describe( 'Категорія', () =>
 
         const time = new Date().getTime(),
             name = faker.word.noun(),
-            title = name + ' ' + time,
-            alias = name + '-' + time,
-            message = 'Категорію "' + title + '" успішно додано';
+            postCategoryTitle = name + ' ' + time,
+            postCategoryAlias = name + '-' + time;
+           // successMessageAddCategory = 'Категорію "' + postCategoryTitle + '" успішно додано';
 
         cy.get( 'body > footer > div > div:nth-child(2) > ul > li:nth-child(1)' )
             .should( 'be.visible' );
@@ -69,13 +69,13 @@ describe( 'Категорія', () =>
             .should( 'be.visible' )
             .focus()
             .clear()
-            .type( title, { delay: 10 } )
-            .should( 'have.value', title );
+            .type( postCategoryTitle, { delay: 10 } )
+            .should( 'have.value', postCategoryTitle );
 
         cy.get( '#form-category-alias' )
             .should( 'be.visible' )
             .focus()
-            .should( 'have.value', alias );
+            .should( 'have.value', postCategoryAlias );
 
         cy.get( '#form-category-submit' )
             .should( 'be.visible' )
@@ -92,10 +92,18 @@ describe( 'Категорія', () =>
             );
 
         cy.get( '.main-form .success-general-text' )
-            .should( 'contain', message );
+            .should( 'contain', Cypress.env('successMessageAddCategory').replace(/title/, postCategoryTitle) );
 
         // cy.screenshot( { overwrite: true } );
     } );
+
+    afterEach(
+        () =>
+        {
+            // Деавторизація
+            utilsUser.deAuthorize();
+        }
+    );
 } );
 
 
