@@ -6,18 +6,16 @@ utilsResponse.checkHttpStatus = ( response, statusCode = 200 ) =>
     expect( response.statusCode ).to.eq( statusCode );
 };
 
-utilsResponse.checkContentType = ( response, contentType ) =>
+utilsResponse.checkJSON = ( response ) =>
 {
     expect( response.headers ).to.have.property( 'content-type' );
+    expect( response.headers[ 'content-type' ] ).to.include( 'application/json' );
+};
 
-    if( contentType === 'checkJSON' )
-    {
-        expect( response.headers[ 'content-type' ] ).to.include( 'application/json' );
-    }
-    else if( contentType === 'checkHTML' )
-    {
-        expect( response.headers[ 'content-type' ] ).to.include( 'text/html' );
-    }
+utilsResponse.checkHTML = ( response ) =>
+{
+    expect( response.headers ).to.have.property( 'content-type' );
+    expect( response.headers[ 'content-type' ] ).to.include( 'text/html' );
 };
 
 utilsResponse.checkTimeoutContentTypeStatus = ( response, pageLoadStart, timeout, contentType, statusCode ) =>
@@ -30,7 +28,7 @@ utilsResponse.checkTimeoutContentTypeStatus = ( response, pageLoadStart, timeout
     expect( ( () => timeout > pageLoadEnd - pageLoadStart )() ).to.be.true;
 
     utilsResponse.checkHttpStatus( response, statusCode );
-    utilsResponse.checkContentType( response, contentType );
+    utilsResponse[contentType]( response );
 };
 
 export default {
