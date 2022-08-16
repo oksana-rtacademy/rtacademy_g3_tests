@@ -3,6 +3,8 @@ import { utilsUser }     from "./lib/utilsUser";
 import { utilsFunc }     from "./lib/utilsFunc";
 import { faker }         from "@faker-js/faker";
 
+const dayjs = require('dayjs');
+
 describe( 'Пост', () =>
 {
     let
@@ -62,7 +64,7 @@ describe( 'Пост', () =>
             postTitle = name + ' ' + time,
             description = faker.lorem.sentence(),
             content = faker.lorem.sentences( 4 ),
-            publishDate = '2022-08-12T12:24',
+            publishDate = dayjs().subtract( 1, 'd' ).format( 'YYYY-MM-DDTHH:mm' ),
             postCategoryTitle = 'PC',
             postCategoryValue = 1,
             postFilePath = utilsFunc.getElemInArray( Cypress.env( 'images' ) ),
