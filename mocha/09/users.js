@@ -51,7 +51,7 @@ describe( 'Users', function()
                         "firstname": firstname
                     });
 
-            expect(response).to.be.json;
+          //  expect(response).to.be.json;
             expect(response).to.have.status(201);
 
             expect(response.body).to.have.property('id').to.be.a('number');
