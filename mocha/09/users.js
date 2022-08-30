@@ -62,7 +62,7 @@ describe( 'Users', function()
 
         });
 
-        it('Не має додати нового користувача прои відправці порожнього body', async () =>
+        it('Не має додати нового користувача при відправці порожнього body', async () =>
         {
             let response = await chai.request("http://api.blog.local")
                 .post("/users")
@@ -71,18 +71,19 @@ describe( 'Users', function()
                 .set('X-TOKEN', '1SEkpnyDplN0DVqvRkgcRur6HKmg7TGahW3MF3RkirOIuuX3tzFlpU7f5IbUhFPFWtH21KQG3XzRMP9CnVbyPWiCWiJ4HYaDRhL3y955h7XByl7ZaNXIdmiuYAaBZcjM')
                 .send();
 
+            console.log( typeof(response) );
+            expect( response ).to.have.status( 400 );
+            expect( response ).to.be.an('object').to.not.be.empty;
 
-            expect(response).to.have.status(400);
-            // console.log(response.body);
 
-            expect( response.body ).to.have.property('type').that.a('string');
-            expect( response.body ).to.have.property('title').that.a('string')
-            expect( response.body ).to.have.property('detail').that.a('string');
-            expect( response.body ).to.have.property('trace').that.a('array');
+            expect( response.body ).to.have.property( 'type' ).that.a( 'string' );
+            expect( response.body ).to.have.property( 'title' ).that.a( 'string' )
+            expect( response.body ).to.have.property( 'detail' ).that.a( 'string' );
+            expect( response.body ).to.have.property( 'trace' ).that.a( 'array' );
 
-            expect( response.body.detail ).to.equal('Syntax error');
+            expect( response.body.detail ).to.equal( 'Syntax error' );
 
-            expect( response.body.title ).to.equal('An error occurred');
+            expect( response.body.title ).to.equal( 'An error occurred' );
 
         });
 
